@@ -1,0 +1,34 @@
+name: NeyGin_Core
+version: 1.3.2
+author: Neyuux_
+main: fr.neyuux.neygincore.Index
+depend: [LG, PvPKits, UHC, Tournoi]
+commands:
+  game:
+    description: Modifie le jeu actuel
+    aliases: [g]
+  sondage:
+    description: Effectue un sondage
+    aliases: [sond, sdg, sd]
+  end:
+    description: Reset la map actuelle
+    permission: end.use
+  spec:
+    description: Commande spectateur pour la map actuelle
+    aliases: [s, spectateur, sp, spectateurs, spect]
+  tell:
+    description: Envoie un message
+    aliases: [msg, message, m, whisper, wh, whp, envoyerunmessageaquelquun]
+  broadcast:
+    description: Fais une annonce
+    permission: broadcast.use
+    aliases: [bd, bc, b, annonce, announce, ann]
+  start:
+    description: Demarre la partie
+    aliases: [st, run]
+    permission: start.use
+  respond:
+    description: Repondre a un message
+    aliases: [r, repond, repondre, rep]
+  tournamentconnexion:
+    description : Demarre le plugin tournoi pour une inscription
