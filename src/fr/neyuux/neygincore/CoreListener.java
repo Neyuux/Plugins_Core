@@ -1,9 +1,7 @@
 package fr.neyuux.neygincore;
 
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import fr.neyuux.neygincore.commands.CommandTell;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +22,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
@@ -33,8 +30,6 @@ public class CoreListener implements Listener {
 	
 	
 	final Location CoreSpawn = new Location(Bukkit.getWorld("Core"), -565, 23.2, 850);
-	final Location PvPKitsSpawn = new Location(Bukkit.getWorld("PvPKits"), -6.096, 5.1, -2.486, -89.6f, -0.5f);
-	final Location LGSpawn = new Location(Bukkit.getWorld("LG"), 494, 12.2, 307, 0f, 0f);
 	private final Index main;
 	
 	public CoreListener(Index main) {
@@ -96,7 +91,6 @@ public class CoreListener implements Listener {
 	
 	@EventHandler(priority = EventPriority.LOWEST)
 	public void onQuit(PlayerQuitEvent event) {
-		
 		Player player = event.getPlayer();
 		
 		event.setQuitMessage(null);
@@ -110,14 +104,13 @@ public class CoreListener implements Listener {
 		if (onlines >= maxonlines) joinmessage = "§4" + onlines;
 		event.setQuitMessage("§8[§c§l-§r§8] §e§o" + player.getName() + " §8(" + joinmessage + "§8/§c§l" + maxonlines + "§8)");
 		
-		List<Entry<Player, Player>> toDelete = new ArrayList<Entry<Player,Player>>();
-		for (Entry<Player, Player> en : main.lastMessages.entrySet()) {
-			if (en.getKey().getName().equals(player.getName()) || en.getValue().getName().equals(player.getName())) {
+		List<Entry<Player, Player>> toDelete = new ArrayList<>();
+		for (Entry<Player, Player> en : CommandTell.lastMessages.entrySet()) {
+			if (en.getKey().getName().equals(player.getName()) || en.getValue().getName().equals(player.getName()))
 				toDelete.add(en);
-			}
 		}
 		for (Entry<Player, Player> del : toDelete)
-			main.lastMessages.remove(del.getKey(), del.getValue());
+			CommandTell.lastMessages.remove(del.getKey(), del.getValue());
 		
 	}
 	
@@ -130,26 +123,24 @@ public class CoreListener implements Listener {
 		
 		if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
 			if (player.getInventory().getItemInHand().equals(getMainBoussole())) {
-				
 				Inventory inv = Bukkit.createInventory(null, 45, main.getPrefix());
-				setInvCoin(inv, (byte)12, 0, (byte)1);
-				setInvCoin(inv, (byte)12, 8, (byte)2);
-				setInvCoin(inv, (byte)12, 36, (byte)3);
-				setInvCoin(inv, (byte)12, 44, (byte)4);
+				int[] slots = {19, 21, 23, 25};
+				setInvCoin(inv, 0, (byte)1);
+				setInvCoin(inv, 8, (byte)2);
+				setInvCoin(inv, 36, (byte)3);
+				setInvCoin(inv, 44, (byte)4);
 				
-				inv.setItem(19, getGameItem(Material.MUSHROOM_SOUP, "§4§lP§b§lv§4§lP §9§lKits", getGameDescription(Arrays.asList("§7Choisis ton kit avec stratégie en compagnie de", "§7tes teammates puis va combattre les autres équipes !"), "Neyuux_", "Neyuux_", 2, Integer.MAX_VALUE)));
-				inv.setItem(21, getGameItem(Material.MONSTER_EGG, "§4§lLoups§7-§4§lGarous §ede §6Thiercelieux", getGameDescription(Arrays.asList("§7Mode de jeu stratégique, obtient", "§7ton rôle, joue et gagne avec ton", "§7camp. Sauras-tu rentrer dans", "§7la tête de tes amis ?"), "Philippe des Pallières et Hervé Marly", "Neyuux_", 5, 26)));
-				inv.setItem(23, getGameItem(Material.GOLD_HELMET, "§6§lTournoi", getGameDescription(Arrays.asList("§7Tournoi en 1 contre 1 avec", "§7comme thème la coupe du monde."), "Neyuux_", "Neyuux_", 8, 64)));
-				inv.setItem(25, getGameItem(Material.GOLDEN_APPLE, "§e§lUHC", getGameDescription(Arrays.asList("§7C'est un UHC tu connais."), "Aucun", "Neyuux_", 2, Bukkit.getServer().getMaxPlayers())));
-
+				int i = 0;
+				for (CurrentGame cg : CurrentGame.values())
+					if (!cg.equals(CurrentGame.NONE)) {
+						inv.setItem(slots[i], getGameItem(cg));
+						i++;
+					}
 				player.openInventory(inv);
 			}
 		}
 		
 	}
-	
-	
-	
 	
 
 
@@ -169,15 +160,8 @@ public class CoreListener implements Listener {
 				return;
 			}
 			
-			if (current.getType().equals(Material.MUSHROOM_SOUP)) {
-				main.setGame("PvPKits", "PvPKits", CurrentGame.PVPKITS, PvPKitsSpawn);
-			} else if (current.getType().equals(Material.MONSTER_EGG) || current.getType().equals(Material.MONSTER_EGGS)) {
-				main.setGame("LG", "LG", CurrentGame.LG, LGSpawn);
-			} else if (current.getType().equals(Material.GOLD_HELMET)) {
-				main.setGame("Tournoi", "Tournoi", CurrentGame.TOURNOI, new Location(Bukkit.getWorld("Tournoi"), -579, 84, 336, 90f, 0f));
-			} else if (current.getType().equals(Material.GOLDEN_APPLE)) {
-				main.setGame("Core", "UHC", CurrentGame.UHC, new Location(Bukkit.getWorld("Core"), -565, 23.2, 850));
-			}
+			if (CurrentGame.getByMaterial(current.getType()) != null)
+				main.setGame(CurrentGame.getByMaterial(current.getType()));
 		}
 		
 	}
@@ -185,46 +169,38 @@ public class CoreListener implements Listener {
 	@EventHandler
 	public void onBreakBlock(BlockBreakEvent event) {
 		Player player = event.getPlayer();
-		if (main.isCurrentGame(CurrentGame.NONE)) {
-		if (!player.getGameMode().equals(GameMode.CREATIVE)) {
-			event.setCancelled(true);
-			player.updateInventory();
-		}
-		}
+		if (main.isCurrentGame(CurrentGame.NONE))
+			if (!player.getGameMode().equals(GameMode.CREATIVE)) {
+				event.setCancelled(true);
+				player.updateInventory();
+			}
 	}
 	
 	
 	@EventHandler
 	public void onPlaceBlock(BlockPlaceEvent event) {
 		Player player = event.getPlayer();
-		if (main.isCurrentGame(CurrentGame.NONE)) {
-		if (!player.getGameMode().equals(GameMode.CREATIVE)) {
-			event.setCancelled(true);
-			player.updateInventory();
-		}
+		if (main.isCurrentGame(CurrentGame.NONE))
+			if (!player.getGameMode().equals(GameMode.CREATIVE)) {
+				event.setCancelled(true);
+				player.updateInventory();
 		}
 	}
 	
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onBurnBlock(BlockBurnEvent e) {
-		if (!main.isCurrentGame(CurrentGame.PVPKITS)) {
-			e.setCancelled(true);
-		}
+		if (!main.isCurrentGame(CurrentGame.PVPKITS)) e.setCancelled(true);
 	}
 	
 	@EventHandler(priority=EventPriority.LOWEST)
     public void onWeatherChange(WeatherChangeEvent event) {
-      
-        boolean rain = event.toWeatherState();
-        if(rain)
+        if(event.toWeatherState())
             event.setCancelled(true);
     }
   
     @EventHandler(priority=EventPriority.LOWEST)
     public void onThunderChange(ThunderChangeEvent event) {
-      
-        boolean storm = event.toThunderState();
-        if(storm)
+        if(event.toThunderState())
             event.setCancelled(true);
     }
 	
@@ -238,9 +214,7 @@ public class CoreListener implements Listener {
 	
 	@EventHandler
 	public void onBlockIgnite(BlockIgniteEvent event){
-	    if (event.getCause().equals(IgniteCause.SPREAD)){
-	        event.setCancelled(true);
-	    }
+	    if (event.getCause().equals(IgniteCause.SPREAD)) event.setCancelled(true);
 	}
 	
 	
@@ -298,7 +272,7 @@ public class CoreListener implements Listener {
 				ss.setLine(13, "reset2");
 				ss.setLine(14, "reset1");
 				ss.destroy();
-				main.setGame(null, null, CurrentGame.NONE, null);
+				main.setGame(CurrentGame.NONE);
 				System.setProperty("RELOAD", "TRUE");
 			}
 	}
@@ -318,8 +292,8 @@ public class CoreListener implements Listener {
 	}
 	
 	
-	private void setInvCoin(Inventory inv, Byte color, int slot, Byte sens) {
-		ItemStack verre = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short)color);
+	private void setInvCoin(Inventory inv, int slot, Byte sens) {
+		ItemStack verre = new ItemStack(Material.STAINED_GLASS_PANE, 1, (byte) 12);
 		if (sens == 1) {
 		inv.setItem((slot), verre);
 		inv.setItem((slot + 9), verre);
@@ -340,33 +314,35 @@ public class CoreListener implements Listener {
 	}
 	
 	
-	private ItemStack getGameItem(Material m, String name, List<String> lore) {
-		ItemStack it = new ItemStack(m);
+	private static ItemStack getGameItem(CurrentGame cg) {
+		ItemStack it = new ItemStack(cg.getGamesInvType());
 		ItemMeta itm = it.getItemMeta();
-		itm.setDisplayName(name);
+		itm.setDisplayName(cg.getPluginPrefix());
+		List<String> lore = new ArrayList<>();
+		String smaxj = "" + cg.getMaxPlayers();
+		if (cg.getMaxPlayers() == Integer.MAX_VALUE) smaxj = "INFINI";
+		StringBuilder line = new StringBuilder("§7");
+		int i = 0;
+		for(String bout : cg.getDescription().split(" ")){
+			line.append(bout).append(" ");
+			if(i == 8){
+				lore.add(line.toString());
+				line = new StringBuilder("§7");
+				i = 0;
+			}
+			i++;
+		}
+		if(!line.toString().equals("§7")) lore.add(line.toString());
+		lore.add("§fNombre de joueurs §7: §ede §c" + cg.getMinPlayers() + "§e à §c" + smaxj);
+		lore.add("");
+		lore.add("§fCréateur §7: §e" + cg.getCredit());
+		lore.add("§fDéveloppeur §7: §e" + cg.getCreator());
+		lore.add("");
+		lore.add("§e>> §eClique droit §bpour lancer le jeu !");
 		itm.setLore(lore);
 		it.setItemMeta(itm);
 	
 		return it;
-	}
-	
-	
-	
-	
-	private List<String> getGameDescription(List<String> desc, String credit, String dév, int minj, int maxj) {
-		List<String> lore = new ArrayList<String>();
-		
-		for (String s : desc) lore.add(s);
-		String smaxj = "" + maxj;
-		if (maxj == Integer.MAX_VALUE) smaxj = "INFINI";
-		lore.add("§fNombre de joueurs §7: §ede §c" + minj + "§e à §c" + smaxj);
-		lore.add("");
-		lore.add("§fCréateur §7: §e" + credit);
-		lore.add("§fDéveloppeur §7: §e" + dév);
-		lore.add("");
-		lore.add("§e>> §eClique droit §bpour lancer le jeu !");
-		
-		return lore;
 	}
 	
 }

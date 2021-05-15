@@ -27,10 +27,6 @@ public class Index extends JavaPlugin {
 	public Map<UUID, ScoreboardSign> boards = new HashMap<>();
 	public static final String prefix = "§4§lNey§6G§ei§2n§4§l_";
 	
-	public Map<String, Integer> SondageList = new HashMap<>();
-	public List<UUID> PlayersHaveVoted = new ArrayList<>();
-	public Map<Player, Player> lastMessages = new HashMap<>();
-	
 	
 	@Override
 	public void onEnable() {
@@ -58,7 +54,7 @@ public class Index extends JavaPlugin {
 		getCommand("sondage").setExecutor(new CommandSondage(this));
 		getCommand("end").setExecutor(new CommandEnd(this));
 		getCommand("broadcast").setExecutor(new CommandBroadcast(this));
-		getCommand("spec").setExecutor(new CommandSpec(this));
+		getCommand("spec").setExecutor(new CommandSpec());
 		getCommand("start").setExecutor(new CommandStart(this));
 		getCommand("tell").setExecutor(new CommandTell(this));
 		getCommand("respond").setExecutor(new CommandRespond(this));
@@ -99,8 +95,28 @@ public class Index extends JavaPlugin {
 	
 	
 	
-	public void setGame(String game, String plname, CurrentGame cg, Location spawn) {
-		if (game == null) {
+	public void setGame(CurrentGame cg) {
+		for (Player p : Bukkit.getOnlinePlayers()) {
+			ScoreboardSign ss = new ScoreboardSign(p, "reset");
+			ss.create();
+			ss.setLine(0, "reset15");
+			ss.setLine(1, "reset14");
+			ss.setLine(2, "reset13");
+			ss.setLine(3, "reset12");
+			ss.setLine(4, "reset11");
+			ss.setLine(5, "reset10");
+			ss.setLine(6, "reset9");
+			ss.setLine(7, "reset8");
+			ss.setLine(8, "reset7");
+			ss.setLine(9, "reset6");
+			ss.setLine(10, "reset5");
+			ss.setLine(11, "reset4");
+			ss.setLine(12, "reset3");
+			ss.setLine(13, "reset2");
+			ss.setLine(14, "reset1");
+			ss.destroy();
+		}
+		if (cg.equals(CurrentGame.NONE)) {
 			PluginManager plm = Bukkit.getServer().getPluginManager();
 			for (Plugin p : plm.getPlugins()) {
 				for (CurrentGame c : CurrentGame.values()) {
@@ -124,7 +140,7 @@ public class Index extends JavaPlugin {
 			}
 			setCurrentGame(CurrentGame.NONE);
 		} else {
-			Bukkit.getServer().createWorld(new WorldCreator(game));
+			if (cg.getWorldName() != null) Bukkit.getServer().createWorld(new WorldCreator(cg.getWorldName()));
 			PluginManager plm = Bukkit.getServer().getPluginManager();
 			for (Plugin pl : plm.getPlugins()) {
 				if (!pl.getName().equalsIgnoreCase("NeyGin_Core")) {
@@ -133,7 +149,7 @@ public class Index extends JavaPlugin {
 			}
 			System.setProperty("RELOAD", "FALSE");
 			System.setProperty("TOURNAMENTCONNEXION", "FALSE");
-			Bukkit.getServer().getPluginManager().enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(plname));
+			Bukkit.getServer().getPluginManager().enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(cg.getPluginName()));
 			setCurrentGame(cg);
 		
 		for (Player p : Bukkit.getOnlinePlayers()) {
@@ -143,7 +159,8 @@ public class Index extends JavaPlugin {
 			if (cg.equals(CurrentGame.TOURNOI)) Index.setPlayerTabList(p, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
 			
 			try {
-				p.teleport(spawn);
+				if (!Double.isNaN(cg.getSpawnX()))
+					p.teleport(new Location(Bukkit.getWorld(cg.getWorldName()), cg.getSpawnX(), cg.getSpawnY(), cg.getSpawnZ()));
 			} catch (NullPointerException ignored) {}
 		}
 	}

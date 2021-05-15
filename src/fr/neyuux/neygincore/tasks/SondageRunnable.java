@@ -1,107 +1,49 @@
 package fr.neyuux.neygincore.tasks;
 
 import fr.neyuux.neygincore.Index;
-import fr.neyuux.neygincore.ScoreboardSign;
+import fr.neyuux.neygincore.commands.CommandSondage;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
-import java.util.Map.Entry;
 
 public class SondageRunnable extends BukkitRunnable {
-
-	public int timer = 30;
-	private final HashMap<String, Integer> couleurs = new HashMap<String, Integer>();
-	private final List<String> votes = new ArrayList<String>();
 	
 	private final Index main;
+	private static int timer;
 	
 	public SondageRunnable(Index main) {
 		this.main = main;
+		timer = 30;
 	}
 	
 	@Override
 	public void run() {
-		
-		if (main.SondageList.isEmpty()) {
+		if (timer == 0) {
+			List<String> props = new ArrayList<>(CommandSondage.votes.keySet());
+			while (props.size() != 1) {
+				int c = Integer.compare(CommandSondage.votes.get(props.get(0)).size(), CommandSondage.votes.get(props.get(1)).size());
+				if (c == 0) props.remove(new Random().nextInt(2));
+				if (c > 0) props.remove(1);
+				if (c < 0) props.remove(0);
+			}
+			Bukkit.broadcastMessage("§b§lSondage §8§l» §eRésultats :");
+			Bukkit.broadcastMessage("-------------------------------");
+			for (Map.Entry<String, List<UUID>> en : CommandSondage.votes.entrySet())
+				Bukkit.broadcastMessage(" §0\u25a0 §f" + en.getKey() + " §1(§3" + en.getValue().size() + " §bvote" + (en.getValue().size() == 1 ? "" : "s") + "§1)");
+			Bukkit.broadcastMessage("-------------------------------");
+			Bukkit.broadcastMessage("§b§lSondage §8§l» §e§lVictoire de la proposition §6\"" + props.get(0) + "§6\" §e!");
+			for (Player p : Bukkit.getOnlinePlayers()) {
+				main.sendTitle(p, "§b§lSondage terminé", "§eVictoire de la proposition " + props.get(0) + " §e!", 5, 60, 5);
+				p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 10, 1);
+			}
 			cancel();
 			return;
 		}
-		
-		if (timer == 30) {
-			for (Player p : Bukkit.getOnlinePlayers()) {
-			ScoreboardSign scoreboard = new ScoreboardSign(p, "§b§lSondage");
-			int slines = 0;
-			scoreboard.create();
-			for(Entry<String, Integer> en : main.SondageList.entrySet()) {
-				couleurs.put(en.getKey(), new Random().nextInt(10));
-				votes.add(en.getKey());
-				scoreboard.setLine(slines, "§" + couleurs.get(en.getKey()) + en.getKey() + " §e: §f" + en.getValue());
-				slines++;
-			}
-			main.boards.put(p.getUniqueId(), scoreboard);
-			}
-		}
-		
-		
-		if (timer == 0) {
-			while(main.SondageList.size() != 1) {
-				Integer i1 = main.SondageList.get(votes.get(0));
-				Integer i2 = main.SondageList.get(votes.get(1));
-				
-				if (i1.compareTo(i2) > 0) {
-					main.SondageList.remove(votes.get(1));
-					votes.remove(1);
-				} else if (i1.compareTo(i2) == 0) {
-					int r = new Random().nextInt(2);
-					if (r == 0) {
-						main.SondageList.remove(votes.get(1));
-						votes.remove(1);
-					} else {
-						main.SondageList.remove(votes.get(0));
-						votes.remove(0);
-					}
-				} else {
-					main.SondageList.remove(votes.get(0));
-					votes.remove(0);
-				}
-			}
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				String s = "";
-				if (main.SondageList.get(votes.get(0)) != 1) s = "s";
-				
-				p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 10, 1);
-				main.sendTitle(p, "§" + couleurs.get(votes.get(0)) + votes.get(0) + " §aa gagné le sondage !", "§eAvec §c" + main.SondageList.get(votes.get(0)) + " §evote"+s+".", 20, 180, 20);
-			}
-			Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §" + couleurs.get(votes.get(0)) + votes.get(0) + " §fa gagné le sondage avec §c" + main.SondageList.get(votes.get(0)) + " §fvotes !");
-			main.SondageList.clear();
-			votes.clear();
-			for (Player p : Bukkit.getOnlinePlayers()) {
-				if (main.boards.containsKey(p.getUniqueId())) {
-					main.boards.get(p.getUniqueId()).destroy();
-				}
-			}
-		}
-	
-		for (Entry<UUID, ScoreboardSign> uuss : main.boards.entrySet()) {
-			ScoreboardSign ss = uuss.getValue();
-			int slines = 0;
-			for(Entry<String, Integer> en : main.SondageList.entrySet()) {
-				if (en.getValue() == 1) {
-					ss.setLine(slines, "§" + couleurs.get(en.getKey()) + en.getKey() + " §e: §f" + en.getValue() + " vote");
-				} else {
-					ss.setLine(slines, "§" + couleurs.get(en.getKey()) + en.getKey() + " §e: §f" + en.getValue() + " votes");
-				}
-				slines++;
-				}
-			}
-		if (timer == 1) {
-			Index.sendActionBarForAllPlayers(main.getPrefix() + "§8§l» §e" + timer + " §fseconde avant la fin du sondage !");
-		} else {
-			Index.sendActionBarForAllPlayers(main.getPrefix() + "§8§l» §e" + timer + " §fsecondes avant la fin du sondage !");
-		}
+		for (Player p : Bukkit.getOnlinePlayers())
+			Index.sendActionBar(p, main.getPrefix() + "§8§l» §bTemps restant pour le sondage : §f" + timer + " seconde" + (timer == 1 ? "" : "s"));
 		timer--;
 	}
 

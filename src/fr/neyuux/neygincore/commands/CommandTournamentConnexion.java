@@ -9,7 +9,7 @@ import fr.neyuux.neygincore.Index;
 
 public class CommandTournamentConnexion implements CommandExecutor {
 	
-	private Index main;
+	private final Index main;
 	public CommandTournamentConnexion(Index main) {
 		this.main = main;
 	}
@@ -18,12 +18,10 @@ public class CommandTournamentConnexion implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
 		
 		if (!main.getServer().getPluginManager().getPlugin("Tournoi").isEnabled()) {
-			
 			System.setProperty("TOURNAMENTCONNEXION", "TRUE");
 			System.setProperty("RELOAD", "FALSE");
 			main.getPluginLoader().enablePlugin(main.getServer().getPluginManager().getPlugin("Tournoi"));
-			Bukkit.broadcastMessage(main.getPrefix() + "§eLe plugin §6§lTournoi §evient d'être démarré pour faire des inscriptions ! Il restera allumé pour 30 secondes.");
-			
+			Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §eLe plugin §6§lTournoi §evient d'être démarré pour faire des inscriptions ! Il restera allumé pour 30 secondes.");
 			return true;
 		}
 		
