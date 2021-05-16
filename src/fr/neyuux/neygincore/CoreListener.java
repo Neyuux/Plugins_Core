@@ -30,9 +30,9 @@ public class CoreListener implements Listener {
 	
 	
 	final Location CoreSpawn = new Location(Bukkit.getWorld("Core"), -565, 23.2, 850);
-	private final Index main;
+	private final Core main;
 	
-	public CoreListener(Index main) {
+	public CoreListener(Core main) {
 		this.main = main;
 	}
 	
@@ -74,13 +74,13 @@ public class CoreListener implements Listener {
 				player.getInventory().setItem(4, getMainBoussole());
 				break;
 			case PVPKITS:
-				Index.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				break;
 			case LG:
-				Index.setPlayerTabList(player, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				break;
 			case TOURNOI:
-				Index.setPlayerTabList(player, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
+				Core.setPlayerTabList(player, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
 			default:
 				break;
 			

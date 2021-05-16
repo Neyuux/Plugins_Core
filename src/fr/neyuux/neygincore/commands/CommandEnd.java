@@ -11,13 +11,13 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import fr.neyuux.neygincore.Index;
+import fr.neyuux.neygincore.Core;
 
 public class CommandEnd implements CommandExecutor {
 
-	private final Index main;
+	private final Core main;
 	
-	public CommandEnd(Index main) {
+	public CommandEnd(Core main) {
 		this.main = main;
 	}
 

@@ -1,6 +1,6 @@
 package fr.neyuux.neygincore.tasks;
 
-import fr.neyuux.neygincore.Index;
+import fr.neyuux.neygincore.Core;
 import fr.neyuux.neygincore.commands.CommandSondage;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
@@ -9,12 +9,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
 
-public class SondageRunnable extends BukkitRunnable {
+public class PollRunnable extends BukkitRunnable {
 	
-	private final Index main;
+	private final Core main;
 	private static int timer;
 	
-	public SondageRunnable(Index main) {
+	public PollRunnable(Core main) {
 		this.main = main;
 		timer = 30;
 	}
@@ -36,14 +36,14 @@ public class SondageRunnable extends BukkitRunnable {
 			Bukkit.broadcastMessage("-------------------------------");
 			Bukkit.broadcastMessage("§b§lSondage §8§l» §e§lVictoire de la proposition §6\"" + props.get(0) + "§6\" §e!");
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				main.sendTitle(p, "§b§lSondage terminé", "§eVictoire de la proposition " + props.get(0) + " §e!", 5, 60, 5);
+				Core.sendTitle(p, "§b§lSondage terminé", "§eVictoire de la proposition " + props.get(0) + " §e!", 5, 60, 5);
 				p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 10, 1);
 			}
 			cancel();
 			return;
 		}
 		for (Player p : Bukkit.getOnlinePlayers())
-			Index.sendActionBar(p, main.getPrefix() + "§8§l» §bTemps restant pour le sondage : §f" + timer + " seconde" + (timer == 1 ? "" : "s"));
+			Core.sendActionBar(p, main.getPrefix() + "§8§l» §bTemps restant pour le sondage : §f" + timer + " seconde" + (timer == 1 ? "" : "s"));
 		timer--;
 	}
 

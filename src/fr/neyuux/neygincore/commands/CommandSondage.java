@@ -1,7 +1,7 @@
 package fr.neyuux.neygincore.commands;
 
-import fr.neyuux.neygincore.Index;
-import fr.neyuux.neygincore.tasks.SondageRunnable;
+import fr.neyuux.neygincore.Core;
+import fr.neyuux.neygincore.tasks.PollRunnable;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -15,11 +15,11 @@ import java.util.*;
 public class CommandSondage implements CommandExecutor {
 	
 
-	private final Index main;
+	private final Core main;
 
 	public static HashMap<String, List<UUID>> votes = new HashMap<>();
 	
-	public CommandSondage(Index main) {
+	public CommandSondage(Core main) {
 		this.main = main;
 	}
 
@@ -44,7 +44,7 @@ public class CommandSondage implements CommandExecutor {
 							Bukkit.broadcastMessage(" §0- §f" + s);
 						}
 						Bukkit.broadcastMessage("§b§lSondage §8§l» §fVotez avec la commande : §e/sondage vote §c<proposition> §f!");
-						new SondageRunnable(main).runTaskTimer(main, 0, 20);
+						new PollRunnable(main).runTaskTimer(main, 0, 20);
 					} else sender.sendMessage(main.getPrefix() + "§8§l» §cVous n'avez pas la permission de créer un sondage.");
 				} else if(args[0].equalsIgnoreCase("vote")) {
 					if (!votes.isEmpty())

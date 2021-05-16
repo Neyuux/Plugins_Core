@@ -5,16 +5,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import fr.neyuux.neygincore.Index;
+import fr.neyuux.neygincore.Core;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CommandBroadcast implements CommandExecutor {
 	
-	private final Index main;
+	private final Core main;
 	
-	public CommandBroadcast(Index main) {
+	public CommandBroadcast(Core main) {
 		this.main = main;
 	}
 

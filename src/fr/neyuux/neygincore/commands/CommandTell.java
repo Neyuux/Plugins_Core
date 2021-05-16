@@ -6,17 +6,17 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import fr.neyuux.neygincore.Index;
+import fr.neyuux.neygincore.Core;
 
 import java.util.HashMap;
 
 public class CommandTell implements CommandExecutor {
 	
-	private final Index main;
+	private final Core main;
 
 	public static final HashMap<Player, Player> lastMessages = new HashMap<>();
 	
-	public CommandTell(Index main) {
+	public CommandTell(Core main) {
 		this.main = main;
 	}
 

@@ -1,7 +1,7 @@
 package fr.neyuux.neygincore.commands;
 
 import fr.neyuux.neygincore.CurrentGame;
-import fr.neyuux.neygincore.Index;
+import fr.neyuux.neygincore.Core;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -9,9 +9,9 @@ import org.bukkit.command.CommandSender;
 
 public class CommandGame implements CommandExecutor {
 	
-	private final Index main;
+	private final Core main;
 	
-	public CommandGame(Index main) {
+	public CommandGame(Core main) {
 		this.main = main;
 	}
 

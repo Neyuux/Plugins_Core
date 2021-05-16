@@ -5,12 +5,12 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
-import fr.neyuux.neygincore.Index;
+import fr.neyuux.neygincore.Core;
 
 public class CommandTournamentConnexion implements CommandExecutor {
 	
-	private final Index main;
-	public CommandTournamentConnexion(Index main) {
+	private final Core main;
+	public CommandTournamentConnexion(Core main) {
 		this.main = main;
 	}
 
