@@ -139,6 +139,7 @@ public class Core extends JavaPlugin {
 				p.getInventory().setItem(4, it);
 			}
 			setCurrentGame(CurrentGame.NONE);
+
 		} else {
 			if (cg.getWorldName() != null) Bukkit.getServer().createWorld(new WorldCreator(cg.getWorldName()));
 			PluginManager plm = Bukkit.getServer().getPluginManager();

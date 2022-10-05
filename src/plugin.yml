@@ -1,7 +1,7 @@
 name: NeyGin_Core
 version: 2.0.1
 author: Neyuux_
-main: fr.neyuux.neygincore.Index
+main: fr.neyuux.neygincore.Core
 depend: [LG, PvPKits, UHC, Tournoi]
 commands:
   game:

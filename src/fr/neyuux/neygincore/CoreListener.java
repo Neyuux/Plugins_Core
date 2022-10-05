@@ -20,6 +20,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -29,7 +31,7 @@ import java.util.Map.Entry;
 public class CoreListener implements Listener {
 	
 	
-	final Location CoreSpawn = new Location(Bukkit.getWorld("Core"), -565, 23.2, 850);
+	final Location CoreSpawn = new Location(Bukkit.getWorld("Core"), -6.5, 49, -5.5, -89f, -9.4f);
 	private final Core main;
 	
 	public CoreListener(Core main) {
@@ -72,6 +74,7 @@ public class CoreListener implements Listener {
 				player.teleport(CoreSpawn);
 				player.getInventory().clear();
 				player.getInventory().setItem(4, getMainBoussole());
+				player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
 				break;
 			case PVPKITS:
 				Core.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
