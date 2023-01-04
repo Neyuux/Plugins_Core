@@ -1,5 +1,5 @@
 name: NeyGin_Core
-version: 2.0.1
+version: 2.0.2
 author: Neyuux_
 main: fr.neyuux.neygincore.Core
 depend: [LG, PvPKits, UHC, Tournoi]

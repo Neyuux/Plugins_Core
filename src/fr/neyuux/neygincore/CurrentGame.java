@@ -1,6 +1,5 @@
 package fr.neyuux.neygincore;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 public enum CurrentGame {

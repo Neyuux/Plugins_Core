@@ -77,10 +77,16 @@ public class CoreListener implements Listener {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
 				break;
 			case PVPKITS:
-				Core.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, """
+						§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r
+						§fBienvenue sur la map de §c§lNeyuux_
+						""", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				break;
 			case LG:
-				Core.setPlayerTabList(player, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, """
+						§c§lLoups§e§l-§6§lGarous
+						§fBienvenue sur la map de §c§lNeyuux_
+						""", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				break;
 			case TOURNOI:
 				Core.setPlayerTabList(player, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
@@ -142,6 +148,8 @@ public class CoreListener implements Listener {
 				player.openInventory(inv);
 			}
 		}
+
+		if (main.isCurrentGame(CurrentGame.NONE)) event.setCancelled(true);
 		
 	}
 	

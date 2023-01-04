@@ -126,7 +126,7 @@ public class Core extends JavaPlugin {
 			}
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.setGameMode(GameMode.ADVENTURE);
-				p.teleport(new Location(Bukkit.getWorld("Core"), -565, 23.2, 850));
+				p.teleport(new Location(Bukkit.getWorld("Core"), -6.5, 49, -5.5, -89f, -9.4f));
 				p.getInventory().clear();
 				setPlayerTabList(p, "", "");
 				ItemStack it = new ItemStack(Material.COMPASS);
@@ -155,8 +155,14 @@ public class Core extends JavaPlugin {
 		
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.getInventory().remove(Material.COMPASS);
-				if (cg.equals(CurrentGame.PVPKITS)) Core.setPlayerTabList(p, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
-				if (cg.equals(CurrentGame.LG)) Core.setPlayerTabList(p, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				if (cg.equals(CurrentGame.PVPKITS)) Core.setPlayerTabList(p, """
+						§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r
+						§fBienvenue sur la map de §c§lNeyuux_
+						""", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				if (cg.equals(CurrentGame.LG)) Core.setPlayerTabList(p, """
+						§c§lLoups§e§l-§6§lGarous
+						§fBienvenue sur la map de §c§lNeyuux_
+						""", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				if (cg.equals(CurrentGame.TOURNOI)) Core.setPlayerTabList(p, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
 
 				try {
