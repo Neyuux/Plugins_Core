@@ -10,6 +10,8 @@ commands:
   sondage:
     description: Effectue un sondage
     aliases: [sond, sdg, sd]
+  updateitems:
+    description: Mets a jour tous les items du joueur
   end:
     description: Reset la map actuelle
     permission: end.use
