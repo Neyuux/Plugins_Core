@@ -59,6 +59,8 @@ public class Core extends JavaPlugin {
 		getCommand("tell").setExecutor(new CommandTell(this));
 		getCommand("respond").setExecutor(new CommandRespond(this));
 		getCommand("tournamentconnexion").setExecutor(new CommandTournamentConnexion(this));
+		getCommand("updateitems").setExecutor(new CommandUpdateItems());
+		getCommand("invsee").setExecutor(new CommandInvSee(this));
 		
 		super.onEnable();
 	}
