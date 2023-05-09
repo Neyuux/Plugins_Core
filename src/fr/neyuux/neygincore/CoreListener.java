@@ -49,13 +49,13 @@ public class CoreListener implements Listener {
 		ev.setJoinMessage(null);
 		int onlines = Bukkit.getOnlinePlayers().size();
 		int maxonlines = Bukkit.getServer().getMaxPlayers();
-		String joinmessage = "§a" + onlines;
-		if (onlines >= (maxonlines / 4)) joinmessage = "§3" + onlines; 
-		if (onlines >= (maxonlines / 3)) joinmessage = "§2" + onlines; 
-		if (onlines >= (maxonlines / 2)) joinmessage = "§e" + onlines;
-		if (onlines >= (maxonlines / 1.3)) joinmessage = "§c" + onlines;
-		if (onlines >= maxonlines) joinmessage = "§4" + onlines;
-		ev.setJoinMessage("§8[§a§l+§r§8] §e§o" + player.getName() + " §8(" + joinmessage + "§8/§c§l" + maxonlines + "§8)");
+		String joinmessage = "Â§a" + onlines;
+		if (onlines >= (maxonlines / 4)) joinmessage = "Â§3" + onlines; 
+		if (onlines >= (maxonlines / 3)) joinmessage = "Â§2" + onlines; 
+		if (onlines >= (maxonlines / 2)) joinmessage = "Â§e" + onlines;
+		if (onlines >= (maxonlines / 1.3)) joinmessage = "Â§c" + onlines;
+		if (onlines >= maxonlines) joinmessage = "Â§4" + onlines;
+		ev.setJoinMessage("Â§8[Â§aÂ§l+Â§rÂ§8] Â§eÂ§o" + player.getName() + " Â§8(" + joinmessage + "Â§8/Â§cÂ§l" + maxonlines + "Â§8)");
 		
 		if (onlines == 0) {
 			PluginManager plm = Bukkit.getServer().getPluginManager();
@@ -77,13 +77,13 @@ public class CoreListener implements Listener {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
 				break;
 			case PVPKITS:
-				Core.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, "Â§e[Â§4Â§lPÂ§bÂ§lvÂ§4Â§lP Â§9Â§lKitsÂ§rÂ§e]Â§r" + "\n" + "Â§fBienvenue sur la map de Â§cÂ§lNeyuux_" + "\n", "\n" + "Â§fMerci Â§ Â§emini0x_ Â§fet Â§expbush Â§f les builders !");
 				break;
 			case LG:
-				Core.setPlayerTabList(player, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, "Â§cÂ§lLoupsÂ§eÂ§l-Â§6Â§lGarous" + "\n" + "Â§fBienvenue sur la map de Â§cÂ§lNeyuux_" + "\n", "\n" + "Â§fMerci Â§ Â§emini0x_ Â§fet Â§expbush Â§f les builders !");
 				break;
 			case TOURNOI:
-				Core.setPlayerTabList(player, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
+				Core.setPlayerTabList(player, "Â§6Â§lTournoiÂ§r" + "\n" + "Â§fBienvenue sur la map de Â§cÂ§lNeyuux_", "\n" + "Â§fMerci Â§eaux builders");
 			default:
 				break;
 			
@@ -99,13 +99,13 @@ public class CoreListener implements Listener {
 		event.setQuitMessage(null);
 		int onlines = Bukkit.getOnlinePlayers().size() - 1;
 		int maxonlines = Bukkit.getServer().getMaxPlayers();
-		String joinmessage = "§a" + onlines;
-		if (onlines >= (maxonlines / 4)) joinmessage = "§2" + onlines; 
-		if (onlines >= (maxonlines / 3)) joinmessage = "§e" + onlines; 
-		if (onlines >= (maxonlines / 2)) joinmessage = "§6" + onlines;
-		if (onlines >= (maxonlines / 1.3)) joinmessage = "§c" + onlines;
-		if (onlines >= maxonlines) joinmessage = "§4" + onlines;
-		event.setQuitMessage("§8[§c§l-§r§8] §e§o" + player.getName() + " §8(" + joinmessage + "§8/§c§l" + maxonlines + "§8)");
+		String joinmessage = "Â§a" + onlines;
+		if (onlines >= (maxonlines / 4)) joinmessage = "Â§2" + onlines; 
+		if (onlines >= (maxonlines / 3)) joinmessage = "Â§e" + onlines; 
+		if (onlines >= (maxonlines / 2)) joinmessage = "Â§6" + onlines;
+		if (onlines >= (maxonlines / 1.3)) joinmessage = "Â§c" + onlines;
+		if (onlines >= maxonlines) joinmessage = "Â§4" + onlines;
+		event.setQuitMessage("Â§8[Â§cÂ§l-Â§rÂ§8] Â§eÂ§o" + player.getName() + " Â§8(" + joinmessage + "Â§8/Â§cÂ§l" + maxonlines + "Â§8)");
 		
 		List<Entry<Player, Player>> toDelete = new ArrayList<>();
 		for (Entry<Player, Player> en : CommandTell.lastMessages.entrySet()) {
@@ -159,7 +159,7 @@ public class CoreListener implements Listener {
 		if (inv.getName().equalsIgnoreCase(main.getPrefix())) {
 			event.setCancelled(true);
 			if (!current.getType().equals(Material.STAINED_GLASS_PANE) && !player.isOp()) {
-				player.sendMessage(main.getPrefix() + "§8§l» §cTu dois être op pour lancer un jeu !");
+				player.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§cTu dois Â§tre op pour lancer un jeu !");
 				return;
 			}
 			
@@ -232,13 +232,13 @@ public class CoreListener implements Listener {
 		String cmd = ev.getMessage();
 		
 		if (cmd.toLowerCase().startsWith("/kill") || cmd.toLowerCase().startsWith("/gamemode") || cmd.toLowerCase().startsWith("/kick") || cmd.toLowerCase().startsWith("/ban") || cmd.toLowerCase().startsWith("/clear") || cmd.toLowerCase().startsWith("/effect") || cmd.toLowerCase().startsWith("/give") || cmd.toLowerCase().startsWith("/tp ") || cmd.toLowerCase().startsWith("/pardon")) {
-			if (player.isOp())	Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §b" + player.getName() + "§e a effectué la commande : §c" + cmd);
+			if (player.isOp())	Bukkit.broadcastMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§b" + player.getName() + "Â§e a effectuÂ§ la commande : Â§c" + cmd);
 		}
 		
 		if (cmd.toLowerCase().startsWith("/op") || cmd.toLowerCase().startsWith("/deop") || cmd.toLowerCase().startsWith("/gamerule") || cmd.toLowerCase().startsWith("/restart") || cmd.toLowerCase().startsWith("/stop") || cmd.toLowerCase().startsWith("/scoreboard")) {
 			if (!player.getUniqueId().toString().equals("0234db8c-e6e5-45e5-8709-ea079fa575bb")) {
 				ev.setCancelled(true);
-				player.sendMessage(main.getPrefix() + "§8§l» §cT ki ?");
+				player.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§cT ki ?");
 			}
 		}
 		
@@ -249,7 +249,7 @@ public class CoreListener implements Listener {
 		if (moi != null) {
 			if (cmd.toLowerCase().startsWith("/kill neyuux_") || cmd.toLowerCase().startsWith("/kick neyuux_") || cmd.toLowerCase().startsWith("/ban neyuux_") || cmd.toLowerCase().startsWith("/clear neyuux_")) {
 				String firstcmd = cmd.toLowerCase().split(" neyuux_")[0].replace("/", "");
-				Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §bLE KARMA §ea effectué la commande : §c/" + firstcmd + " " + player.getName() + "§e. (Quel fdp ce " + player.getName() + ")");
+				Bukkit.broadcastMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§bLE KARMA Â§ea effectuÂ§ la commande : Â§c/" + firstcmd + " " + player.getName() + "Â§e. (Quel fdp ce " + player.getName() + ")");
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), firstcmd + " " + player.getName());
 				ev.setCancelled(true);
 			}
@@ -285,10 +285,10 @@ public class CoreListener implements Listener {
 	private ItemStack getMainBoussole() {
 		ItemStack it = new ItemStack(Material.COMPASS);
 		ItemMeta itm = it.getItemMeta();
-		itm.setDisplayName("§a§lJ§b§lE§a§lU§b§lX");
+		itm.setDisplayName("Â§aÂ§lJÂ§bÂ§lEÂ§aÂ§lUÂ§bÂ§lX");
 		itm.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 		itm.addEnchant(Enchantment.DURABILITY, 1, true);
-		itm.setLore(Collections.singletonList("§7>> §bClique droit §apour ouvrir le menu"));
+		itm.setLore(Collections.singletonList("Â§7>> Â§bClique droit Â§apour ouvrir le menu"));
 		it.setItemMeta(itm);
 		
 		return it;
@@ -324,24 +324,24 @@ public class CoreListener implements Listener {
 		List<String> lore = new ArrayList<>();
 		String smaxj = "" + cg.getMaxPlayers();
 		if (cg.getMaxPlayers() == Integer.MAX_VALUE) smaxj = "INFINI";
-		StringBuilder line = new StringBuilder("§7");
+		StringBuilder line = new StringBuilder("Â§7");
 		int i = 0;
 		for(String bout : cg.getDescription().split(" ")){
 			line.append(bout).append(" ");
 			if(i == 8){
 				lore.add(line.toString());
-				line = new StringBuilder("§7");
+				line = new StringBuilder("Â§7");
 				i = 0;
 			}
 			i++;
 		}
-		if(!line.toString().equals("§7")) lore.add(line.toString());
-		lore.add("§fNombre de joueurs §7: §ede §c" + cg.getMinPlayers() + "§e à §c" + smaxj);
+		if(!line.toString().equals("Â§7")) lore.add(line.toString());
+		lore.add("Â§fNombre de joueurs Â§7: Â§ede Â§c" + cg.getMinPlayers() + "Â§e Â§ Â§c" + smaxj);
 		lore.add("");
-		lore.add("§fCréateur §7: §e" + cg.getCredit());
-		lore.add("§fDéveloppeur §7: §e" + cg.getCreator());
+		lore.add("Â§fCrÂ§ateur Â§7: Â§e" + cg.getCredit());
+		lore.add("Â§fDÂ§veloppeur Â§7: Â§e" + cg.getCreator());
 		lore.add("");
-		lore.add("§e>> §eClique droit §bpour lancer le jeu !");
+		lore.add("Â§e>> Â§eClique droit Â§bpour lancer le jeu !");
 		itm.setLore(lore);
 		it.setItemMeta(itm);
 	
