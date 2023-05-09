@@ -126,7 +126,7 @@ public class Core extends JavaPlugin {
 			}
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.setGameMode(GameMode.ADVENTURE);
-				p.teleport(new Location(Bukkit.getWorld("Core"), -565, 23.2, 850));
+				p.teleport(new Location(Bukkit.getWorld("Core"), -6.5, 49, -5.5, -89f, -9.4f));
 				p.getInventory().clear();
 				setPlayerTabList(p, "", "");
 				ItemStack it = new ItemStack(Material.COMPASS);
