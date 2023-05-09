@@ -155,8 +155,8 @@ public class Core extends JavaPlugin {
 		
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.getInventory().remove(Material.COMPASS);
-				if (cg.equals(CurrentGame.PVPKITS)) Core.setPlayerTabList(p, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci § §emini0x_ §fet §expbush §f les builders !");
-				if (cg.equals(CurrentGame.LG)) Core.setPlayerTabList(p, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci § §emini0x_ §fet §expbush §f les builders !");
+				if (cg.equals(CurrentGame.PVPKITS)) Core.setPlayerTabList(p, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				if (cg.equals(CurrentGame.LG)) Core.setPlayerTabList(p, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				if (cg.equals(CurrentGame.TOURNOI)) Core.setPlayerTabList(p, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
 
 				try {

@@ -77,10 +77,10 @@ public class CoreListener implements Listener {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
 				break;
 			case PVPKITS:
-				Core.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci § §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				break;
 			case LG:
-				Core.setPlayerTabList(player, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci § §emini0x_ §fet §expbush §f les builders !");
+				Core.setPlayerTabList(player, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
 				break;
 			case TOURNOI:
 				Core.setPlayerTabList(player, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
@@ -159,7 +159,7 @@ public class CoreListener implements Listener {
 		if (inv.getName().equalsIgnoreCase(main.getPrefix())) {
 			event.setCancelled(true);
 			if (!current.getType().equals(Material.STAINED_GLASS_PANE) && !player.isOp()) {
-				player.sendMessage(main.getPrefix() + "§8§l§ §cTu dois §tre op pour lancer un jeu !");
+				player.sendMessage(main.getPrefix() + "§8§l» §cTu dois être op pour lancer un jeu !");
 				return;
 			}
 			
@@ -238,7 +238,7 @@ public class CoreListener implements Listener {
 		if (cmd.toLowerCase().startsWith("/op") || cmd.toLowerCase().startsWith("/deop") || cmd.toLowerCase().startsWith("/gamerule") || cmd.toLowerCase().startsWith("/restart") || cmd.toLowerCase().startsWith("/stop") || cmd.toLowerCase().startsWith("/scoreboard")) {
 			if (!player.getUniqueId().toString().equals("0234db8c-e6e5-45e5-8709-ea079fa575bb")) {
 				ev.setCancelled(true);
-				player.sendMessage(main.getPrefix() + "§8§l§ §cT ki ?");
+				player.sendMessage(main.getPrefix() + "§8§l» §cT ki ?");
 			}
 		}
 		
@@ -336,10 +336,10 @@ public class CoreListener implements Listener {
 			i++;
 		}
 		if(!line.toString().equals("§7")) lore.add(line.toString());
-		lore.add("§fNombre de joueurs §7: §ede §c" + cg.getMinPlayers() + "§e § §c" + smaxj);
+		lore.add("§fNombre de joueurs §7: §ede §c" + cg.getMinPlayers() + "§e à §c" + smaxj);
 		lore.add("");
-		lore.add("§fCr§ateur §7: §e" + cg.getCredit());
-		lore.add("§fD§veloppeur §7: §e" + cg.getCreator());
+		lore.add("§fCréateur §7: §e" + cg.getCredit());
+		lore.add("§fDéveloppeur §7: §e" + cg.getCreator());
 		lore.add("");
 		lore.add("§e>> §eClique droit §bpour lancer le jeu !");
 		itm.setLore(lore);

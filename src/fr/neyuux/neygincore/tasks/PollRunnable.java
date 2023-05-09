@@ -29,21 +29,21 @@ public class PollRunnable extends BukkitRunnable {
 				if (c > 0) props.remove(1);
 				if (c < 0) props.remove(0);
 			}
-			Bukkit.broadcastMessage("§b§lSondage §8§l§ §eR§sultats :");
+			Bukkit.broadcastMessage("§b§lSondage §8§l§ §eRésultats :");
 			Bukkit.broadcastMessage("-------------------------------");
 			for (Map.Entry<String, List<UUID>> en : CommandSondage.votes.entrySet())
 				Bukkit.broadcastMessage(" §0\u25a0 §f" + en.getKey() + " §1(§3" + en.getValue().size() + " §bvote" + (en.getValue().size() == 1 ? "" : "s") + "§1)");
 			Bukkit.broadcastMessage("-------------------------------");
-			Bukkit.broadcastMessage("§b§lSondage §8§l§ §e§lVictoire de la proposition §6\"" + props.get(0) + "§6\" §e!");
+			Bukkit.broadcastMessage("§b§lSondage §8§l» §e§lVictoire de la proposition §6\"" + props.get(0) + "§6\" §e!");
 			for (Player p : Bukkit.getOnlinePlayers()) {
-				Core.sendTitle(p, "§b§lSondage termin§", "§eVictoire de la proposition " + props.get(0) + " §e!", 5, 60, 5);
+				Core.sendTitle(p, "§b§lSondage terminé", "§eVictoire de la proposition " + props.get(0) + " §e!", 5, 60, 5);
 				p.playSound(p.getLocation(), Sound.ENDERDRAGON_GROWL, 10, 1);
 			}
 			cancel();
 			return;
 		}
 		for (Player p : Bukkit.getOnlinePlayers())
-			Core.sendActionBar(p, main.getPrefix() + "§8§l§ §bTemps restant pour le sondage : §f" + timer + " seconde" + (timer == 1 ? "" : "s"));
+			Core.sendActionBar(p, main.getPrefix() + "§8§l» §bTemps restant pour le sondage : §f" + timer + " seconde" + (timer == 1 ? "" : "s"));
 		timer--;
 	}
 

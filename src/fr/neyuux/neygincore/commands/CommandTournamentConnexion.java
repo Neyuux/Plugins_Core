@@ -21,7 +21,7 @@ public class CommandTournamentConnexion implements CommandExecutor {
 			System.setProperty("TOURNAMENTCONNEXION", "TRUE");
 			System.setProperty("RELOAD", "FALSE");
 			main.getPluginLoader().enablePlugin(main.getServer().getPluginManager().getPlugin("Tournoi"));
-			Bukkit.broadcastMessage(main.getPrefix() + "§8§l§ §eLe plugin §6§lTournoi §evient d'§tre d§marr§ pour faire des inscriptions ! Il restera allum§ pour 30 secondes.");
+			Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §eLe plugin §6§lTournoi §evient d'être démarré pour faire des inscriptions ! Il restera allumé pour 30 secondes.");
 			return true;
 		}
 		

@@ -39,7 +39,7 @@ public class CommandEnd implements CommandExecutor {
 			inventoryOpener.openInventory(inv);
 			inventoryOpener.closeInventory();
 
-		} else sender.sendMessage(main.getPrefix() + "§8§l§ §cUn joueur doit §tre connect§ pour utiliser cette commande.");
+		} else sender.sendMessage(main.getPrefix() + "§8§l» §cUn joueur doit être connecté pour utiliser cette commande.");
 		return true;
 	}
 }
