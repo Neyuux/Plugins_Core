@@ -28,15 +28,15 @@ public class CommandRespond implements CommandExecutor {
 					StringBuilder bc = new StringBuilder();
 					for (String part : args) bc.append(part).append(" ");
 					
-					p.sendMessage("§5[§bReçu de §a§l" + player.getName() + "§5] §8§l§ §e" + bc);
+					p.sendMessage("§5[§bReçu de §a§l" + player.getName() + "§5] §8§l» §e" + bc);
 					CommandTell.lastMessages.put(p, player);
-					player.sendMessage("§5[§bEnvoyé § §a§l" + p.getName() + "§5] §8§l§ §e" + bc);
+					player.sendMessage("§5[§bEnvoyé à §a§l" + p.getName() + "§5] §8§l» §e" + bc);
 				} else
-					player.sendMessage(main.getPrefix() + "§8§l§ " + help);
+					player.sendMessage(main.getPrefix() + "§8§l» " + help);
 			} else
-				player.sendMessage(main.getPrefix() + "§8§l§ §cVous n'avez personne à qui répondre !");
+				player.sendMessage(main.getPrefix() + "§8§l» §cVous n'avez personne à qui répondre !");
 		} else
-			sender.sendMessage(main.getPrefix() + "§8§l§ §cVous n'êtes pas un joueur !");
+			sender.sendMessage(main.getPrefix() + "§8§l» §cVous n'êtes pas un joueur !");
 		
 		return true;
 	}

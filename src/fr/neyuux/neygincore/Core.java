@@ -25,7 +25,7 @@ public class Core extends JavaPlugin {
 	
 	
 	private CurrentGame cgame;
-	public static final String prefix = "Â§4Â§lNeyÂ§6GÂ§eiÂ§2nÂ§4Â§l_";
+	public static final String prefix = "§4§lNey§6G§ei§2n§4§l_";
 	
 	
 	@Override
@@ -139,10 +139,10 @@ public class Core extends JavaPlugin {
 				setPlayerTabList(p, "", "");
 				ItemStack it = new ItemStack(Material.COMPASS);
 				ItemMeta itm = it.getItemMeta();
-				itm.setDisplayName("Â§aÂ§lJÂ§bÂ§lEÂ§aÂ§lUÂ§bÂ§lX");
+				itm.setDisplayName("§a§lJ§b§lE§a§lU§b§lX");
 				itm.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 				itm.addEnchant(Enchantment.DURABILITY, 1, true);
-				itm.setLore(Collections.singletonList("Â§7>> Â§bClique droit Â§apour ouvrir le menu"));
+				itm.setLore(Collections.singletonList("§7>> §bClique droit §apour ouvrir le menu"));
 				it.setItemMeta(itm);
 				p.getInventory().setItem(4, it);
 			}
@@ -163,9 +163,9 @@ public class Core extends JavaPlugin {
 		
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.getInventory().remove(Material.COMPASS);
-				if (cg.equals(CurrentGame.PVPKITS)) Core.setPlayerTabList(p, "Â§e[Â§4Â§lPÂ§bÂ§lvÂ§4Â§lP Â§9Â§lKitsÂ§rÂ§e]Â§r" + "\n" + "Â§fBienvenue sur la map de Â§cÂ§lNeyuux_" + "\n", "\n" + "Â§fMerci Ã  Â§emini0x_ Â§fet Â§expbush Â§f les builders !");
-				if (cg.equals(CurrentGame.LG)) Core.setPlayerTabList(p, "Â§cÂ§lLoupsÂ§eÂ§l-Â§6Â§lGarous" + "\n" + "Â§fBienvenue sur la map de Â§cÂ§lNeyuux_" + "\n", "\n" + "Â§fMerci Ã  Â§emini0x_ Â§fet Â§expbush Â§f les builders !");
-				if (cg.equals(CurrentGame.TOURNOI)) Core.setPlayerTabList(p, "Â§6Â§lTournoiÂ§r" + "\n" + "Â§fBienvenue sur la map de Â§cÂ§lNeyuux_", "\n" + "Â§fMerci Â§eaux builders");
+				if (cg.equals(CurrentGame.PVPKITS)) Core.setPlayerTabList(p, "§e[§4§lP§b§lv§4§lP §9§lKits§r§e]§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				if (cg.equals(CurrentGame.LG)) Core.setPlayerTabList(p, "§c§lLoups§e§l-§6§lGarous" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_" + "\n", "\n" + "§fMerci à §emini0x_ §fet §expbush §f les builders !");
+				if (cg.equals(CurrentGame.TOURNOI)) Core.setPlayerTabList(p, "§6§lTournoi§r" + "\n" + "§fBienvenue sur la map de §c§lNeyuux_", "\n" + "§fMerci §eaux builders");
 
 				try {
 					if (!Double.isNaN(cg.getSpawnX()))

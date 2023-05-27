@@ -24,9 +24,9 @@ public class CommandTell implements CommandExecutor {
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
 		String help = "§fAide pour la commande §e"+alias+"§f :§r\n§e/"+alias+" §a<pseudo> <message>";
 		
-		if (args.length == 0) sender.sendMessage(main.getPrefix() + "§8§l§ " + help);
+		if (args.length == 0) sender.sendMessage(main.getPrefix() + "§8§l» " + help);
 		else {
-			if (args[0].equalsIgnoreCase("help")) sender.sendMessage(main.getPrefix() + "§8§l§ " + help);
+			if (args[0].equalsIgnoreCase("help")) sender.sendMessage(main.getPrefix() + "§8§l» " + help);
 			else {
 				Player p = null;
 				StringBuilder msg = new StringBuilder();
@@ -35,15 +35,15 @@ public class CommandTell implements CommandExecutor {
 						p = op;
 
 				if (p == null)
-					sender.sendMessage(main.getPrefix() + "§8§l§ §cLe joueur §4\"§e" + args[0] + "§4\"§c n'existe pas.");
+					sender.sendMessage(main.getPrefix() + "§8§l» §cLe joueur §4\"§e" + args[0] + "§4\"§c n'existe pas.");
 				else if (p.getName().equals(sender.getName()))
-					sender.sendMessage(main.getPrefix() + "§8§l§ §cSchizophr§ne.");
+					sender.sendMessage(main.getPrefix() + "§8§l» §cSchizophrène.");
 
 				else {
 					for (String s : args) if (!s.equals(args[0])) msg.append(" ").append(s);
-					p.sendMessage("§5[§bRe§u de §a§l" + sender.getName() + "§5] §8§l§ §e" + msg);
+					p.sendMessage("§5[§bReçu de §a§l" + sender.getName() + "§5] §8§l» §e" + msg);
 					if (sender instanceof Player) lastMessages.put(p, (Player) sender);
-					sender.sendMessage("§5[§bEnvoy§ § §a§l" + p.getName() + "§5] §8§l§ §e" + msg);
+					sender.sendMessage("§5[§bEnvoyé à §a§l" + p.getName() + "§5] §8§l» §e" + msg);
 					if (sender instanceof Player) lastMessages.put((Player) sender, p);
 				}
 			}

@@ -249,7 +249,7 @@ public class CoreListener implements Listener {
 		if (moi != null) {
 			if (cmd.toLowerCase().startsWith("/kill neyuux_") || cmd.toLowerCase().startsWith("/kick neyuux_") || cmd.toLowerCase().startsWith("/ban neyuux_") || cmd.toLowerCase().startsWith("/clear neyuux_")) {
 				String firstcmd = cmd.toLowerCase().split(" neyuux_")[0].replace("/", "");
-				Bukkit.broadcastMessage(main.getPrefix() + "§8§l§ §bLE KARMA §ea effectu§ la commande : §c/" + firstcmd + " " + player.getName() + "§e. (Quel fdp ce " + player.getName() + ")");
+				Bukkit.broadcastMessage(main.getPrefix() + "§8§l§ §bLE KARMA §ea effectué la commande : §c/" + firstcmd + " " + player.getName() + "§e. (Quel fdp ce " + player.getName() + ")");
 				Bukkit.dispatchCommand(Bukkit.getConsoleSender(), firstcmd + " " + player.getName());
 				ev.setCancelled(true);
 			}
