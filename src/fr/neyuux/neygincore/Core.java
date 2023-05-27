@@ -45,8 +45,10 @@ public class Core extends JavaPlugin {
 		
 		for (Plugin p : pm.getPlugins()) {
 			for (CurrentGame cg : CurrentGame.values()) {
-				if (p.isEnabled() && p.getName().equals(cg.getPluginName()))
+				if (p.isEnabled() && p.getName().equals(cg.getPluginName())) {
 					pm.disablePlugin(p);
+					cg.setDetected(true);
+				}
 			}
 		}
 		
@@ -96,6 +98,10 @@ public class Core extends JavaPlugin {
 	
 	
 	public void setGame(CurrentGame cg) {
+		if (!cg.isDetected()) {
+			Bukkit.broadcastMessage("§4[§cErreur§4] Impossible de lancer " + cg.getPluginName() + ". Plugin non détecté.");
+		}
+
 		for (Player p : Bukkit.getOnlinePlayers()) {
 			ScoreboardSign ss = new ScoreboardSign(p, "reset");
 			ss.create();

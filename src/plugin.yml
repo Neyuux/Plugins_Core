@@ -1,8 +1,8 @@
 name: NeyGin_Core
-version: 2.0.2
+version: 2.0.3
 author: Neyuux_
 main: fr.neyuux.neygincore.Core
-depend: [LG, PvPKits, UHC, Tournoi]
+softdepend: [LG, PvPKits, UHC, Tournoi]
 commands:
   game:
     description: Modifie le jeu actuel

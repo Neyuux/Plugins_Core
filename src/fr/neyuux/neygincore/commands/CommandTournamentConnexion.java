@@ -1,5 +1,6 @@
 package fr.neyuux.neygincore.commands;
 
+import fr.neyuux.neygincore.CurrentGame;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -16,6 +17,10 @@ public class CommandTournamentConnexion implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
+
+		if (!CurrentGame.TOURNOI.isDetected()) {
+			sender.sendMessage("§4[§cErreur§4] §cImpossible d'effectuer cette commande, le plugin Tournoi n'est pas activé.");
+		}
 		
 		if (!main.getServer().getPluginManager().getPlugin("Tournoi").isEnabled()) {
 			System.setProperty("TOURNAMENTCONNEXION", "TRUE");
