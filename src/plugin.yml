@@ -34,3 +34,9 @@ commands:
     aliases: [r, repond, repondre, rep]
   tournamentconnexion:
     description : Demarre le plugin tournoi pour une inscription
+  invsee:
+    description: Regarder l'inventaire de quelqu'un
+    aliases:
+      - seeinv
+      - checkinv
+    permission: invsee.use

@@ -18,30 +18,30 @@ public class CommandGame implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
 		if (args.length < 1) {
-			sender.sendMessage(main.getPrefix() + "§8§l» §fListe des arguments de la commande §agame§f : \n§e/game get §7Donne le jeu actuel \n§e/game set <jeu> §7Change le jeu actuel");
+			sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fListe des arguments de la commande Â§agameÂ§f : \nÂ§e/game get Â§7Donne le jeu actuel \nÂ§e/game set <jeu> Â§7Change le jeu actuel");
 			return true;
 		}
 		switch (args[0].toLowerCase()) {
 			case "help":
-				sender.sendMessage(main.getPrefix() + "§8§l» §fListe des arguments de la commande §agame§f : \n§e/game get §7Donne le jeu actuel \n§e/game set <jeu> §7Change le jeu actuel");
+				sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fListe des arguments de la commande Â§agameÂ§f : \nÂ§e/game get Â§7Donne le jeu actuel \nÂ§e/game set <jeu> Â§7Change le jeu actuel");
 				break;
 			case "get":
-				sender.sendMessage(main.getPrefix() + "§8§l» §fJeu en cours : §c" + main.getCurrentGame().toString());
+				sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fJeu en cours : Â§c" + main.getCurrentGame().toString());
 				break;
 			case "set":
 				if (sender.isOp()) {
 					if (args.length < 2)
-						sender.sendMessage(main.getPrefix() + "§8§l» §cVeuillez renseigner un jeu !");
+						sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cVeuillez renseigner un jeu !");
 					else {
 						if (CurrentGame.getByPluginName(args[1]) != null)
 							changeGame(sender, CurrentGame.getByPluginName(args[1]));
-						else sender.sendMessage(main.getPrefix() + "§8§l» §cJeu invalide, liste de jeux : §ePvPKits, LG, None, UHC");
+						else sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cJeu invalide, liste de jeux : Â§ePvPKits, LG, None, UHC");
 					}
 				} else
-					sender.sendMessage(main.getPrefix() + "§8§l» §cTu dois être §4OP §cpour lancer un jeu !");
+					sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cTu dois Ãªtre Â§4OP Â§cpour lancer un jeu !");
 				break;
 			default:
-				sender.sendMessage(main.getPrefix() + "§8§l» §cArgument invalide : essayez §e/game help §c!");
+				sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§cArgument invalide : essayez Â§e/game help Â§c!");
 				break;
 		}
 		return true;
@@ -49,8 +49,8 @@ public class CommandGame implements CommandExecutor {
 
 	private void changeGame(CommandSender sender, CurrentGame cg) {
 		main.setGame(cg);
-		if (!cg.equals(CurrentGame.NONE))Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §b" + sender.getName() + " §ea mit le jeu sur " + cg.getPluginPrefix() + "§e.");
-		else Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §b" + sender.getName() + " §ea reset le jeu.");
+		if (!cg.equals(CurrentGame.NONE))Bukkit.broadcastMessage(main.getPrefix() + "Â§8Â§lÂ» Â§b" + sender.getName() + " Â§ea mit le jeu sur " + cg.getPluginPrefix() + "Â§e.");
+		else Bukkit.broadcastMessage(main.getPrefix() + "Â§8Â§lÂ» Â§b" + sender.getName() + " Â§ea reset le jeu.");
 	}
 
 }

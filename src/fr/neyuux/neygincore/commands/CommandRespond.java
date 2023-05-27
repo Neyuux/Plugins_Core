@@ -22,21 +22,21 @@ public class CommandRespond implements CommandExecutor {
 			Player player = (Player)sender;
 			if (CommandTell.lastMessages.containsKey(player)) {
 				Player p = CommandTell.lastMessages.get(player);
-				String help = "§fAide pour la commande §e"+alias+"§f :§r\n§e/"+alias+" §a <message>";
+				String help = "Â§fAide pour la commande Â§e"+alias+"Â§f :Â§r\nÂ§e/"+alias+" Â§a <message>";
 				
 				if (args.length > 0) {
 					StringBuilder bc = new StringBuilder();
 					for (String part : args) bc.append(part).append(" ");
 					
-					p.sendMessage("§5[§bReçu de §a§l" + player.getName() + "§5] §8§l» §e" + bc.toString());
+					p.sendMessage("Â§5[Â§bReÃ§u de Â§aÂ§l" + player.getName() + "Â§5] Â§8Â§lÂ§ Â§e" + bc);
 					CommandTell.lastMessages.put(p, player);
-					player.sendMessage("§5[§bEnvoyé à §a§l" + p.getName() + "§5] §8§l» §e" + bc.toString());
+					player.sendMessage("Â§5[Â§bEnvoyÃ© Â§ Â§aÂ§l" + p.getName() + "Â§5] Â§8Â§lÂ§ Â§e" + bc);
 				} else
-					player.sendMessage(main.getPrefix() + "§8§l» " + help);
+					player.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ " + help);
 			} else
-				player.sendMessage(main.getPrefix() + "§8§l» §cVous n'avez personne à qui répondre !");
+				player.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§cVous n'avez personne Ã  qui rÃ©pondre !");
 		} else
-			sender.sendMessage(main.getPrefix() + "§8§l» §cVous n'êtes pas un joueur !");
+			sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§cVous n'Ãªtes pas un joueur !");
 		
 		return true;
 	}
