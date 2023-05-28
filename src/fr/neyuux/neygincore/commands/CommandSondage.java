@@ -29,28 +29,28 @@ public class CommandSondage implements CommandExecutor {
 				if (args[0].equalsIgnoreCase("create")) {
 					if (sender.isOp()) {
 						if (args.length == 2) {
-							sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cIl faut 2 propositions au minimum !");
+							sender.sendMessage(main.getPrefix() + "§8§l» §cIl faut 2 propositions au minimum !");
 							return true;
 						}
 						if (args.length > 15) {
-							sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cIl faut 15 propositions au maximum !");
+							sender.sendMessage(main.getPrefix() + "§8§l» §cIl faut 15 propositions au maximum !");
 							return true;
 						}
-						Bukkit.broadcastMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fUn nouveau sondage Ã  dÃ©butÃ© ! Voici les propositions : ");
+						Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §fUn nouveau sondage à débuté ! Voici les propositions : ");
 						votes.clear();
 						for (int i=1; i < args.length; i++) {
 							String s = getRandomColor() + args[i];
 							votes.put(s, new ArrayList<>());
-							Bukkit.broadcastMessage(" Â§0- Â§f" + s);
+							Bukkit.broadcastMessage(" §0- §f" + s);
 						}
-						Bukkit.broadcastMessage("Â§bÂ§lSondage Â§8Â§lÂ» Â§fVotez avec la commande : Â§e/sondage vote Â§c<proposition> Â§f!");
+						Bukkit.broadcastMessage("§b§lSondage §8§l» §fVotez avec la commande : §e/sondage vote §c<proposition> §f!");
 						new PollRunnable(main).runTaskTimer(main, 0, 20);
-					} else sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ§ Â§cVous n'avez pas la permission de crÃ©er un sondage.");
+					} else sender.sendMessage(main.getPrefix() + "§8§l§ §cVous n'avez pas la permission de créer un sondage.");
 				} else if(args[0].equalsIgnoreCase("vote")) {
 					if (!votes.isEmpty())
 						if (containsArg(args[1])) {
 							if (!(sender instanceof Player)) {
-								sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cTu dois Ãªtre un joueur pour faire cette commande !");
+								sender.sendMessage(main.getPrefix() + "§8§l» §cTu dois être un joueur pour faire cette commande !");
 								return true;
 							}
 							Player p = (Player) sender;
@@ -59,17 +59,17 @@ public class CommandSondage implements CommandExecutor {
 							if (!hasVoted(p.getUniqueId())) {
 								votes.get(getWithColor(args[1])).add(p.getUniqueId());
 								if (votes.get(getWithColor(args[1])).size() != 1) s = "s";
-								p.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fVous avez bien votÃ© pour Â§c\"" + args[1] + "\" Â§f ! Cette proposition a dÃ©sormais Â§a" + votes.get(getWithColor(args[1])).size() + " Â§fvote" + s + ".");
-							} else sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cVous avez dÃ©jÃ  votÃ© !");
+								p.sendMessage(main.getPrefix() + "§8§l» §fVous avez bien voté pour §c\"" + args[1] + "\" §f ! Cette proposition a désormais §a" + votes.get(getWithColor(args[1])).size() + " §fvote" + s + ".");
+							} else sender.sendMessage(main.getPrefix() + "§8§l» §cVous avez déjà voté !");
 					} else {
-						sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cCette propostion n'existe pas ! Voici les propositons existantes : ");
+						sender.sendMessage(main.getPrefix() + "§8§l» §cCette propostion n'existe pas ! Voici les propositons existantes : ");
 						for (String v : votes.keySet())
-							sender.sendMessage(" Â§0- Â§f" + v);
+							sender.sendMessage(" §0- §f" + v);
 					}
-					else sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§cAucun vote n'est en cours !");
-				} else sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fListe d'arguments pour la commande Â§asondage :\nÂ§e/sondage vote <proposition> Â§7Voter pour une propostions\nÂ§e/sondage create <propositions (2 min)>");
+					else sender.sendMessage(main.getPrefix() + "§8§l» §cAucun vote n'est en cours !");
+				} else sender.sendMessage(main.getPrefix() + "§8§l» §fListe d'arguments pour la commande §asondage :\n§e/sondage vote <proposition> §7Voter pour une propostions\n§e/sondage create <propositions (2 min)>");
 			} else
-				sender.sendMessage(main.getPrefix() + "Â§8Â§lÂ» Â§fListe d'arguments pour la commande Â§asondage :\nÂ§e/sondage vote <proposition> Â§7Voter pour une propostions\nÂ§e/sondage create <propositions (2 min)>");
+				sender.sendMessage(main.getPrefix() + "§8§l» §fListe d'arguments pour la commande §asondage :\n§e/sondage vote <proposition> §7Voter pour une propostions\n§e/sondage create <propositions (2 min)>");
 		return true;
 	}
 

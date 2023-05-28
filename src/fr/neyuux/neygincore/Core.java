@@ -100,8 +100,9 @@ public class Core extends JavaPlugin {
 	
 	
 	public void setGame(CurrentGame cg) {
-		if (!cg.isDetected()) {
+		if (!cg.isDetected() && !cg.equals(CurrentGame.NONE)) {
 			Bukkit.broadcastMessage("§4[§cErreur§4] Impossible de lancer " + cg.getPluginName() + ". Plugin non détecté.");
+			return;
 		}
 
 		for (Player p : Bukkit.getOnlinePlayers()) {
