@@ -12,6 +12,7 @@ import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.server.PluginEnableEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.inventory.Inventory;
@@ -127,7 +128,7 @@ public class CoreListener implements Listener {
 		if (action.equals(Action.RIGHT_CLICK_AIR) || action.equals(Action.RIGHT_CLICK_BLOCK)) {
 			if (player.getInventory().getItemInHand().equals(getMainBoussole())) {
 				Inventory inv = Bukkit.createInventory(null, 45, main.getPrefix());
-				int[] slots = {19, 21, 23, 25};
+				int[] slots = {11, 13, 15, 30, 32};
 				setInvCoin(inv, 0, (byte)1);
 				setInvCoin(inv, 8, (byte)2);
 				setInvCoin(inv, 36, (byte)3);
@@ -143,6 +144,20 @@ public class CoreListener implements Listener {
 			}
 		}
 		
+	}
+
+	@EventHandler
+	public void onPluginEnable(PluginEnableEvent ev) {
+		PluginManager plm = Bukkit.getServer().getPluginManager();
+
+		for (Plugin p : plm.getPlugins()) {
+			for (CurrentGame c : CurrentGame.values()) {
+				if (main.isCurrentGame(c))
+					continue;
+				if (p.isEnabled() && c.getPluginNames().contains(p.getName()) )
+					plm.disablePlugin(p);
+			}
+		}
 	}
 	
 
@@ -230,9 +245,12 @@ public class CoreListener implements Listener {
 	public void onCommand(PlayerCommandPreprocessEvent ev) {
 		Player player = ev.getPlayer();
 		String cmd = ev.getMessage();
+
+		if (!main.isProtections())
+			return;
 		
 		if (cmd.toLowerCase().startsWith("/kill") || cmd.toLowerCase().startsWith("/gamemode") || cmd.toLowerCase().startsWith("/kick") || cmd.toLowerCase().startsWith("/ban") || cmd.toLowerCase().startsWith("/clear") || cmd.toLowerCase().startsWith("/effect") || cmd.toLowerCase().startsWith("/give") || cmd.toLowerCase().startsWith("/tp ") || cmd.toLowerCase().startsWith("/pardon")) {
-			if (player.isOp())	Bukkit.broadcastMessage(main.getPrefix() + "§8§l§ §b" + player.getName() + "§e a effectu§ la commande : §c" + cmd);
+			if (player.isOp())	Bukkit.broadcastMessage(main.getPrefix() + "§8§l» §b" + player.getName() + "§e a effectué la commande : §c" + cmd);
 		}
 		
 		if (cmd.toLowerCase().startsWith("/op") || cmd.toLowerCase().startsWith("/deop") || cmd.toLowerCase().startsWith("/gamerule") || cmd.toLowerCase().startsWith("/restart") || cmd.toLowerCase().startsWith("/stop") || cmd.toLowerCase().startsWith("/scoreboard")) {

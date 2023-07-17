@@ -1,8 +1,9 @@
 name: NeyGin_Core
-version: 2.0.3
+version: 2.1.0
 author: Neyuux_
 main: fr.neyuux.neygincore.Core
-softdepend: [LG, PvPKits, UHC, Tournoi]
+softdepend: [LG, PvPKits, UHC, Tournoi, Privates-AddonLG, WereWolfPlugin]
+load: STARTUP
 commands:
   game:
     description: Modifie le jeu actuel
@@ -32,11 +33,12 @@ commands:
   respond:
     description: Repondre a un message
     aliases: [r, repond, repondre, rep]
-  tournamentconnexion:
-    description : Demarre le plugin tournoi pour une inscription
   invsee:
     description: Regarder l'inventaire de quelqu'un
     aliases:
       - seeinv
       - checkinv
     permission: invsee.use
+  protections:
+    description: Activer ou desactiver protections de Neyuux_
+    permission: protections.use

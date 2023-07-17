@@ -14,6 +14,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -26,6 +28,8 @@ public class Core extends JavaPlugin {
 	
 	private CurrentGame cgame;
 	public static final String prefix = "§4§lNey§6G§ei§2n§4§l_";
+
+	private boolean protections = true;
 	
 	
 	@Override
@@ -45,8 +49,8 @@ public class Core extends JavaPlugin {
 		
 		for (Plugin p : pm.getPlugins()) {
 			for (CurrentGame cg : CurrentGame.values()) {
-				if (p.isEnabled() && p.getName().equals(cg.getPluginName())) {
-					pm.disablePlugin(p);
+				if (cg.getPluginNames().contains(p.getName())) {
+					if (p.isEnabled()) pm.disablePlugin(p);
 					cg.setDetected(true);
 				}
 			}
@@ -60,9 +64,9 @@ public class Core extends JavaPlugin {
 		getCommand("start").setExecutor(new CommandStart(this));
 		getCommand("tell").setExecutor(new CommandTell(this));
 		getCommand("respond").setExecutor(new CommandRespond(this));
-		getCommand("tournamentconnexion").setExecutor(new CommandTournamentConnexion(this));
-		getCommand("updateitems").setExecutor(new CommandUpdateItems());
+		getCommand("updateitems").setExecutor(new CommandUpdateItems(this));
 		getCommand("invsee").setExecutor(new CommandInvSee(this));
+		getCommand("protections").setExecutor(new CommandProtections(this));
 		
 		super.onEnable();
 	}
@@ -100,8 +104,9 @@ public class Core extends JavaPlugin {
 	
 	
 	public void setGame(CurrentGame cg) {
+
 		if (!cg.isDetected() && !cg.equals(CurrentGame.NONE)) {
-			Bukkit.broadcastMessage("§4[§cErreur§4] Impossible de lancer " + cg.getPluginName() + ". Plugin non détecté.");
+			Bukkit.broadcastMessage(this.getPrefix() + "§8§l» §4[§cErreur§4] §cImpossible de lancer " + cg.getPluginNames() + ". Plugin non détecté.");
 			return;
 		}
 
@@ -129,7 +134,7 @@ public class Core extends JavaPlugin {
 			PluginManager plm = Bukkit.getServer().getPluginManager();
 			for (Plugin p : plm.getPlugins()) {
 				for (CurrentGame c : CurrentGame.values()) {
-					if (p.isEnabled() && p.getName().equals(c.getPluginName()) )
+					if (p.isEnabled() && c.getPluginNames().contains(p.getName()) )
 						plm.disablePlugin(p);
 				}
 			}
@@ -146,21 +151,23 @@ public class Core extends JavaPlugin {
 				itm.setLore(Collections.singletonList("§7>> §bClique droit §apour ouvrir le menu"));
 				it.setItemMeta(itm);
 				p.getInventory().setItem(4, it);
+				p.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION, Integer.MAX_VALUE, 0, false, false));
 			}
 			setCurrentGame(CurrentGame.NONE);
 
 		} else {
 			if (cg.getWorldName() != null) Bukkit.getServer().createWorld(new WorldCreator(cg.getWorldName()));
 			PluginManager plm = Bukkit.getServer().getPluginManager();
-			for (Plugin pl : plm.getPlugins()) {
-				if (!pl.getName().equalsIgnoreCase("NeyGin_Core")) {
-					plm.disablePlugin(pl);
+			for (Plugin p : plm.getPlugins()) {
+				for (CurrentGame c : CurrentGame.values()) {
+					if (p.isEnabled() && c.getPluginNames().contains(p.getName()))
+						plm.disablePlugin(p);
 				}
 			}
 			System.setProperty("RELOAD", "FALSE");
 			System.setProperty("TOURNAMENTCONNEXION", "FALSE");
-			Bukkit.getServer().getPluginManager().enablePlugin(Bukkit.getServer().getPluginManager().getPlugin(cg.getPluginName()));
 			setCurrentGame(cg);
+			cg.getPluginNames().forEach(s -> plm.enablePlugin(plm.getPlugin(s)));
 		
 			for (Player p : Bukkit.getOnlinePlayers()) {
 				p.getInventory().remove(Material.COMPASS);
@@ -251,4 +258,11 @@ public class Core extends JavaPlugin {
 		} catch (NullPointerException e) {e.printStackTrace();}
 	}
 
+	public boolean isProtections() {
+		return protections;
+	}
+
+	public void setProtections(boolean protections) {
+		this.protections = protections;
+	}
 }

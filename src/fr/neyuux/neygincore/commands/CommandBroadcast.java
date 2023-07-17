@@ -1,11 +1,14 @@
 package fr.neyuux.neygincore.commands;
 
+import fr.neyuux.neygincore.CurrentGame;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 
 import fr.neyuux.neygincore.Core;
+import org.bukkit.plugin.Plugin;
+import org.bukkit.plugin.PluginManager;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;

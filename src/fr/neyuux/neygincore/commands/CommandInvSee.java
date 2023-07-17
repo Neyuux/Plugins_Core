@@ -23,7 +23,7 @@ public class CommandInvSee implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        String prefix = main.getPrefix() + "Â§8Â§lÂ» Â§bÂ§lInvSee Â§8Â§lÂ» ";
+        String prefix = main.getPrefix() + "§8§l» §b§lInvSee §8§l» ";
 
         if (cmd.getName().equalsIgnoreCase("invsee")) {
             Player p = (Player)sender;
@@ -37,7 +37,7 @@ public class CommandInvSee implements CommandExecutor {
                     if (Bukkit.getPlayer(args[0]) == null) {
 
                         p.playSound(p.getLocation(), Sound.BAT_DEATH, 1.0F, -1.0F);
-                        p.sendMessage(prefix + "Â§cLe joueur Â§e\"Â§4" + args[0] + "Â§e\"Â§c n'est pas en ligne.");
+                        p.sendMessage(prefix + "§cLe joueur §e\"§4" + args[0] + "§e\"§c n'est pas en ligne.");
 
                     } else {
 
@@ -47,11 +47,11 @@ public class CommandInvSee implements CommandExecutor {
                     }
                 } else {
 
-                    p.sendMessage(prefix + "Â§cVous n'avez pas la permissino !");
+                    p.sendMessage(prefix + "§cVous n'avez pas la permission !");
                     p.playSound(p.getLocation(), Sound.BAT_DEATH, 1.0F, -10.0F);
                 }
             } else {
-                p.sendMessage(prefix + "Â§cUsage : Â§6/" + label +  " Â§e<joueur>");
+                p.sendMessage(prefix + "§cUsage : §6/" + label +  " §e<joueur>");
                 p.playSound(p.getLocation(), Sound.BAT_DEATH, 1.0F, -1.0F);
             }
         }

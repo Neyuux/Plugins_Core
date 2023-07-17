@@ -33,9 +33,9 @@ public class CommandGame implements CommandExecutor {
 					if (args.length < 2)
 						sender.sendMessage(main.getPrefix() + "§8§l» §cVeuillez renseigner un jeu !");
 					else {
-						if (CurrentGame.getByPluginName(args[1]) != null)
-							changeGame(sender, CurrentGame.getByPluginName(args[1]));
-						else sender.sendMessage(main.getPrefix() + "§8§l» §cJeu invalide, liste de jeux : §ePvPKits, LG, None, UHC");
+						if (CurrentGame.getByName(args[1]) != null)
+							changeGame(sender, CurrentGame.getByName(args[1]));
+						else sender.sendMessage(main.getPrefix() + "§8§l» §cJeu invalide, liste de jeux : §ePvPKits, LG, Tournoi, UHC, LG_UHC, None");
 					}
 				} else
 					sender.sendMessage(main.getPrefix() + "§8§l» §cTu dois être §4OP §cpour lancer un jeu !");

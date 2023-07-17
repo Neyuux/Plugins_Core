@@ -1,5 +1,7 @@
 package fr.neyuux.neygincore.commands;
 
+import fr.neyuux.neygincore.Core;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -10,16 +12,30 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class CommandUpdateItems implements CommandExecutor {
 
+    private final Core main;
+
+    public CommandUpdateItems(Core core) {
+        this.main = core;
+    }
+
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String alias, String[] args) {
         if (sender instanceof Player) {
-            PlayerInventory inv = ((Player)sender).getInventory();
+            Player player = (Player)sender;
+            PlayerInventory inv = player.getInventory();
 
-            for (ItemStack content : inv.getContents()) {
-                Material type = content.getType();
-                content.setType(Material.STONE);
-                content.setType(type);
-            }
+            ItemStack[] previous = inv.getContents();
+
+            inv.clear();
+            while (inv.firstEmpty() != -1)
+                inv.setItem(inv.firstEmpty(), new ItemStack(Material.STONE));
+
+            player.updateInventory();
+
+            Bukkit.getScheduler().runTaskLater(main, () -> {
+                inv.setContents(previous);
+                player.updateInventory();
+            }, 1L);
         }
         return true;
     }
